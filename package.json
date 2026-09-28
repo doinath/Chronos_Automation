@@ -1,0 +1,14 @@
+{
+  "name": "chronos-api-playwright",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:api": "playwright test tests/api-1",
+    "test:ui": "playwright test tests/ui",
+    "test:api:ui": "playwright test tests/api-1 --ui",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}
