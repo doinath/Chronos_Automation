@@ -9,7 +9,7 @@ test.use({
 });
 
 test.describe('Attendances E2E', () => {
-  test('shows the attendance table headers for admin', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     const email = process.env.ADMIN_EMAIL;
     const password = process.env.TEST_PASSWORD;
     if (!email || !password) {
@@ -34,9 +34,17 @@ test.describe('Attendances E2E', () => {
 
     if (await allowNotifications.isVisible()) await allowNotifications.click();
     await expect(page).toHaveURL(/\/dashboard\/?(?:[?#]|$)/);
+  });
 
+  test('shows the attendance table headers for admin', async ({ page }) => {
     const flow = new AttendancesWorkflow(page);
     await flow.open();
     await flow.list();
+  });
+
+  test('shows the attendance summary cards for admin', async ({ page }) => {
+    const flow = new AttendancesWorkflow(page);
+    await flow.open();
+    await flow.expectSummaryCards();
   });
 });

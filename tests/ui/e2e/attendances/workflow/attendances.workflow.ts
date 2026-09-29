@@ -6,6 +6,15 @@ export class AttendancesWorkflow extends ModuleWorkflow {
     super(page, '/dashboard/attendance');
   }
 
+  override async open(): Promise<void> {
+    const attendanceLink = this.page.getByRole('link', { name: 'Attendance', exact: true });
+    if (!(await attendanceLink.isVisible())) {
+      await this.basePage.clickByRole('button', 'Toggle Navigation');
+    }
+    await attendanceLink.click();
+    await expect(this.page).toHaveURL(/\/dashboard\/attendance\/?(?:[?#]|$)/);
+  }
+
   override async list(): Promise<void> {
     await expect(this.page).toHaveURL(/\/dashboard\/attendance\/?(?:[?#]|$)/);
     const table = this.page.locator('div.table-body-overlay-host');
@@ -24,5 +33,15 @@ export class AttendancesWorkflow extends ModuleWorkflow {
         'Actions',
       ].map((header) => new RegExp(`^\\s*${header}\\s*$`)),
     );
+  }
+
+  async expectSummaryCards(): Promise<void> {
+    await expect(this.page.locator('span.status-card__title')).toHaveText([
+      'Employees Present',
+      'On Time',
+      'Late Entry',
+      'Absences',
+      'On Leave',
+    ]);
   }
 }
