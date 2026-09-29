@@ -1,4 +1,3 @@
-# UI test skeleton
+# UI tests
 
-The module specs in this folder are intentionally marked with `test.fixme`.
-Replace each placeholder with the appropriate `page.goto`, locator actions, and assertions as the UI routes and selectors are confirmed.
+Feature tests and workflows live under `tests/ui/e2e/<feature>/`. See [the E2E guide](e2e/README.md) for the layout and run instructions.

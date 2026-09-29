@@ -6,7 +6,7 @@
     "typecheck": "tsc --noEmit",
     "test:api": "playwright test tests/api-1",
     "test:ui": "playwright test tests/ui",
-    "test:login": "playwright test tests/ui/e2e/auth.e2e.spec.ts --project=ui",
+    "test:login": "playwright test tests/ui/e2e/auth/test/auth.e2e.spec.ts --project=ui",
     "test:api:ui": "playwright test tests/api-1 --ui",
     "report": "playwright show-report"
   },
