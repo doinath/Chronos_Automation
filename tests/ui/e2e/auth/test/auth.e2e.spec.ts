@@ -2,7 +2,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { AuthWorkflow } from '../workflow/auth.workflow';
 
 test.use({
-  channel: process.env.LOGIN_BROWSER_CHANNEL ?? (process.platform === 'win32' ? 'chrome' : undefined),
+  channel:
+    process.env.LOGIN_BROWSER_CHANNEL ?? (process.platform === 'win32' ? 'chrome' : undefined),
   permissions: ['notifications'],
 });
 
@@ -14,11 +15,16 @@ async function loginAndExpectDashboard(page: Page, email: string, password: stri
   const allowNotifications = page.getByRole('button', { name: 'Allow Notifications' });
   const dashboardUrl = /\/dashboard\/?(?:[?#]|$)/;
 
-  await expect.poll(async () => {
-    if (await allowNotifications.isVisible()) return 'notification modal';
-    if (dashboardUrl.test(page.url())) return 'dashboard';
-    return 'waiting';
-  }, { timeout: 30_000 }).not.toBe('waiting');
+  await expect
+    .poll(
+      async () => {
+        if (await allowNotifications.isVisible()) return 'notification modal';
+        if (dashboardUrl.test(page.url())) return 'dashboard';
+        return 'waiting';
+      },
+      { timeout: 30_000 },
+    )
+    .not.toBe('waiting');
 
   if (await allowNotifications.isVisible()) {
     await allowNotifications.click();
@@ -49,7 +55,10 @@ test.describe('Auth E2E', () => {
     const email = process.env.EMPLOYEE_EMAIL;
     const password = process.env.EMPLOYEE_PASSWORD;
     if (!email || !password) {
-      test.skip(true, 'Employee account is not available yet. Set EMPLOYEE_EMAIL and EMPLOYEE_PASSWORD when ready.');
+      test.skip(
+        true,
+        'Employee account is not available yet. Set EMPLOYEE_EMAIL and EMPLOYEE_PASSWORD when ready.',
+      );
       return;
     }
 

@@ -2,7 +2,10 @@ import type { Page } from '@playwright/test';
 import { Workflow } from './workflow';
 
 export class ModuleWorkflow extends Workflow {
-  constructor(page: Page, private readonly route: string) {
+  constructor(
+    page: Page,
+    private readonly route: string,
+  ) {
     super(page);
   }
 

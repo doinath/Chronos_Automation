@@ -17,7 +17,12 @@ export class FormHelper {
 
   async checkForError(errorTexts: string[]): Promise<boolean> {
     for (const errorText of errorTexts) {
-      if (await this.page.getByText(errorText, { exact: true }).isVisible().catch(() => false)) {
+      if (
+        await this.page
+          .getByText(errorText, { exact: true })
+          .isVisible()
+          .catch(() => false)
+      ) {
         return true;
       }
     }

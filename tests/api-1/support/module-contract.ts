@@ -34,7 +34,11 @@ export function getModuleOperations(moduleName: string): ModuleOperation[] {
   );
 }
 
-export function validateOperation(operation: ModuleOperation['operation'], moduleName: string, expect: any) {
+export function validateOperation(
+  operation: ModuleOperation['operation'],
+  moduleName: string,
+  expect: typeof import('@playwright/test').expect,
+) {
   expect(operation.operationId, 'operationId is required').toBeTruthy();
   expect(operation.tags).toContain(moduleName);
   expect(operation.responses, 'operation must define responses').toBeTruthy();
@@ -42,5 +46,7 @@ export function validateOperation(operation: ModuleOperation['operation'], modul
 
   const parameters = operation.parameters ?? [];
   const parameterKeys = parameters.map((parameter) => `${parameter.in}:${parameter.name}`);
-  expect(new Set(parameterKeys).size, 'operation has duplicate parameters').toBe(parameterKeys.length);
+  expect(new Set(parameterKeys).size, 'operation has duplicate parameters').toBe(
+    parameterKeys.length,
+  );
 }

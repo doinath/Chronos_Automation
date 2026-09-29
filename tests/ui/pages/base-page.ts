@@ -53,7 +53,10 @@ export class BasePage extends FormHelper {
     await this.page.waitForLoadState('networkidle');
   }
 
-  async navigateToModule(moduleName: string, options?: { role?: Role; timeout?: number }): Promise<void> {
+  async navigateToModule(
+    moduleName: string,
+    options?: { role?: Role; timeout?: number },
+  ): Promise<void> {
     const moduleLink = this.page.getByRole(options?.role ?? 'link', { name: moduleName });
     await expect(moduleLink).toBeVisible({ timeout: options?.timeout ?? 10_000 });
     await moduleLink.click();
@@ -107,7 +110,8 @@ export class BasePage extends FormHelper {
   }
 
   async selectFromDropdown(dropdownTrigger: Locator | string, option: Locator): Promise<void> {
-    const trigger = typeof dropdownTrigger === 'string' ? this.page.locator(dropdownTrigger) : dropdownTrigger;
+    const trigger =
+      typeof dropdownTrigger === 'string' ? this.page.locator(dropdownTrigger) : dropdownTrigger;
     await trigger.click();
     await option.click();
   }
@@ -121,7 +125,11 @@ export class BasePage extends FormHelper {
     await this.page.getByText(text).click();
   }
 
-  async clickButtonInModal(modalLocator: Locator, name: string, role: 'button' | 'link' = 'button'): Promise<void> {
+  async clickButtonInModal(
+    modalLocator: Locator,
+    name: string,
+    role: 'button' | 'link' = 'button',
+  ): Promise<void> {
     const element = modalLocator.getByRole(role, { name });
     await expect(element).toBeVisible();
     await element.click();
@@ -174,11 +182,16 @@ export class BasePage extends FormHelper {
     await this.page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
   }
 
-  async checkAndResolveErrors(mappings: FieldMapping[] | Record<string, FieldMapping[]>): Promise<void> {
+  async checkAndResolveErrors(
+    mappings: FieldMapping[] | Record<string, FieldMapping[]>,
+  ): Promise<void> {
     const steps = Array.isArray(mappings) ? { default: mappings } : mappings;
     for (const fields of Object.values(steps)) {
       for (const mapping of fields) {
-        if (await this.checkForError(mapping.errorTexts) || await this.checkIfEmpty(mapping.role, mapping.fieldName)) {
+        if (
+          (await this.checkForError(mapping.errorTexts)) ||
+          (await this.checkIfEmpty(mapping.role, mapping.fieldName))
+        ) {
           await this.handleMappedField(mapping);
         }
       }
@@ -194,7 +207,8 @@ export class BasePage extends FormHelper {
       const dropdown = this.page.getByRole(mapping.role, { name: mapping.fieldName, exact: true });
       await dropdown.click();
       if (mapping.value) await dropdown.fill(mapping.value);
-      if (mapping.optionName) await this.page.getByRole('option', { name: mapping.optionName }).click();
+      if (mapping.optionName)
+        await this.page.getByRole('option', { name: mapping.optionName }).click();
       return;
     }
     throw new Error(`Unsupported field handler: ${mapping.handler}`);

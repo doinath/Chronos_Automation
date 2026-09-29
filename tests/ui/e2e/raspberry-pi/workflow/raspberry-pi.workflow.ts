@@ -1,3 +1,7 @@
 import type { Page } from '@playwright/test';
 import { ModuleWorkflow } from '../../shared/module.workflow';
-export class RaspberryPiWorkflow extends ModuleWorkflow { constructor(page: Page) { super(page, '/raspi'); } }
+export class RaspberryPiWorkflow extends ModuleWorkflow {
+  constructor(page: Page) {
+    super(page, '/raspi');
+  }
+}
