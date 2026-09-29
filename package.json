@@ -29,7 +29,7 @@
     "test:api:users": "playwright test tests/api-1/users.spec.ts tests/api-1/users-crud.spec.ts --project=api",
     "test:ui": "playwright test tests/ui",
     "test:ui:app": "playwright test tests/ui/e2e/app/test/app.e2e.spec.ts --project=ui",
-    "test:ui:attendances": "playwright test tests/ui/e2e/attendances/test/attendances.e2e.spec.ts --project=ui --debug",
+    "test:ui:attendances": "playwright test tests/ui/e2e/attendances/test/attendances.e2e.spec.ts --project=ui ",
     "test:ui:auth": "playwright test tests/ui/e2e/auth/test/auth.e2e.spec.ts --project=ui",
     "test:ui:departments": "playwright test tests/ui/e2e/departments/test/departments.e2e.spec.ts --project=ui",
     "test:ui:employees": "playwright test tests/ui/e2e/employees/test/employees.e2e.spec.ts --project=ui",
