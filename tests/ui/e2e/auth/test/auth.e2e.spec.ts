@@ -51,6 +51,20 @@ test.describe('Auth E2E', () => {
     await loginAndExpectDashboard(page, email, password);
   });
 
+  test('logs out as admin and returns to the base URL', async ({ page }) => {
+    const email = process.env.ADMIN_EMAIL;
+    const password = process.env.TEST_PASSWORD;
+    if (!email || !password) {
+      throw new Error('Set ADMIN_EMAIL and TEST_PASSWORD in .env to run the admin logout test.');
+    }
+
+    await loginAndExpectDashboard(page, email, password);
+    await new AuthWorkflow(page).logout();
+
+    const baseURL = process.env.DEV_URL ?? process.env.UI_BASE_URL ?? 'http://localhost:3000/';
+    await expect(page).toHaveURL(new URL(baseURL).toString());
+  });
+
   test('logs in as employee', async ({ page }) => {
     const email = process.env.EMPLOYEE_EMAIL;
     const password = process.env.EMPLOYEE_PASSWORD;

@@ -14,6 +14,7 @@ export class AuthWorkflow extends Workflow {
     await this.basePage.clickByRole('button', 'Login');
   }
   async logout(): Promise<void> {
-    /* TODO: open account menu and sign out. */
+    await this.basePage.clickByRole('button', 'Toggle profile menu');
+    await this.basePage.clickByRole('button', 'Logout');
   }
 }
