@@ -82,9 +82,17 @@ export class BasePage extends FormHelper {
     await element.click();
   }
 
+  async clickByRole(role: Role, name: string): Promise<void> {
+    await this.click(this.page.getByRole(role, { name }));
+  }
+
   async fillByRole(role: Role, name: string, text: string, exact = false): Promise<void> {
     const element = this.page.getByRole(role, { name, exact });
     await element.fill(text);
+  }
+
+  async fillByLabel(name: string, text: string): Promise<void> {
+    await this.page.getByLabel(name, { exact: true }).fill(text);
   }
 
   async fill(locator: Locator | string, text: string): Promise<void> {

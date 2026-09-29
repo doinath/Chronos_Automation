@@ -1,6 +1,6 @@
-import { expect, type AriaRole, type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
-export type Role = AriaRole;
+export type Role = Parameters<Page['getByRole']>[0];
 
 export class FormHelper {
   constructor(protected readonly page: Page) {}

@@ -3,12 +3,19 @@
   "private": true,
   "scripts": {
     "test": "playwright test",
+    "typecheck": "tsc --noEmit",
     "test:api": "playwright test tests/api-1",
     "test:ui": "playwright test tests/ui",
+    "test:login": "playwright test tests/ui/e2e/auth.e2e.spec.ts --project=ui",
     "test:api:ui": "playwright test tests/api-1 --ui",
     "report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0"
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.4"
   }
 }

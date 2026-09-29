@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+import 'dotenv/config';
 
 /**
  * API tests target the OpenAPI server prefix (`/dev`) by default.
